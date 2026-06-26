@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Department Storage Portal</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <section id="loginSection" class="login-layout">
+      <div class="brand-panel">
+        <div class="logo">DSP</div>
+        <h1>Department Storage Portal</h1>
+        <p>One laptop server for department files, documents, reports, and maintenance records.</p>
+        <div class="dept-preview">
+          <span>Admin</span><span>Operation</span><span>Maintenance</span>
+        </div>
+      </div>
+      <div class="card login-card">
+        <h2>Sign in</h2>
+        <p class="muted">Use your department account.</p>
+        <label>API URL</label>
+        <input id="apiUrl" placeholder="http://localhost:3000" />
+        <label>Username</label>
+        <input id="username" placeholder="User" />
+        <label>Password</label>
+        <input id="password" type="password" placeholder="Password" />
+        <button id="loginBtn">Login</button>
+        <p id="loginMsg" class="message"></p>
+    </section>
+
+    <section id="dashboardSection" class="hidden">
+      <aside class="sidebar">
+        <div class="side-logo">DSP</div>
+        <button class="nav active" data-dept="All">Dashboard</button>
+        <button class="nav" data-dept="Admin">Admin</button>
+        <button class="nav" data-dept="Operation">Operation</button>
+        <button class="nav" data-dept="Maintenance">Maintenance</button>
+        <button class="nav" data-dept="Shared">Shared Files</button>
+        <button id="logoutBtn" class="nav logout">Logout</button>
+      </aside>
+
+      <div class="content">
+        <header class="topbar">
+          <div>
+            <h1 id="pageTitle">Dashboard</h1>
+            <p class="muted">Backend runs on your laptop. Frontend can be uploaded to GitHub Pages.</p>
+          </div>
+          <div class="user-pill" id="userPill">User</div>
+        </header>
+
+        <div class="stats">
+          <div class="stat-card"><span>Total Files</span><strong id="totalFiles">0</strong></div>
+          <div class="stat-card"><span>Total Storage Used</span><strong id="totalSize">0 MB</strong></div>
+          <div class="stat-card"><span>Current View</span><strong id="currentDept">All</strong></div>
+          <div class="stat-card"><span>Server</span><strong id="serverStatus">Checking...</strong></div>
+        </div>
+
+        <section class="grid">
+          <form id="uploadForm" class="card">
+            <h2>Upload File</h2>
+            <label>Department</label>
+            <select id="department">
+              <option>Admin</option>
+              <option>Operation</option>
+              <option>Maintenance</option>
+              <option>Shared</option>
+            </select>
+            <label>Title</label>
+            <input id="title" required placeholder="Example: Daily Operation Report" />
+            <label>Document Type</label>
+            <select id="category">
+              <option>General</option>
+              <option>Reports</option>
+              <option>Forms</option>
+              <option>Receipts</option>
+              <option>Images</option>
+              <option>PDF</option>
+              <option>Excel</option>
+              <option>Videos</option>
+            </select>
+            <label>Description</label>
+            <textarea id="description" rows="3" placeholder="Optional notes"></textarea>
+            <label>Choose File</label>
+            <input id="file" type="file" required />
+            <button type="submit">Upload</button>
+            <p id="uploadMsg" class="message"></p>
+          </form>
+
+          <section class="card">
+            <h2>Department Summary</h2>
+            <div id="categoryList" class="chips"></div>
+            <div class="rules-box">
+              <strong>Suggested use</strong>
+              <p><b>Admin:</b> permits, HR, memos, accounting files.</p>
+              <p><b>Operation:</b> daily reports, schedules, client documents.</p>
+              <p><b>Maintenance:</b> repair records, service reports, equipment photos.</p>
+              <p><b>Shared:</b> files available for all departments.</p>
+            </div>
+          </section>
+        </section>
+
+        <section class="card">
+          <div class="table-head">
+            <h2>Files</h2>
+            <div class="filters">
+              <input id="searchInput" placeholder="Search title, description, filename..." />
+              <select id="filterDepartment">
+                <option value="">All Departments</option>
+                <option>Admin</option>
+                <option>Operation</option>
+                <option>Maintenance</option>
+                <option>Shared</option>
+              </select>
+              <select id="filterCategory">
+                <option value="">All Types</option>
+                <option>General</option>
+                <option>Reports</option>
+                <option>Forms</option>
+                <option>Receipts</option>
+                <option>Images</option>
+                <option>PDF</option>
+                <option>Excel</option>
+                <option>Videos</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Department</th>
+                  <th>Type</th>
+                  <th>Filename</th>
+                  <th>Size</th>
+                  <th>Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="fileTable"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
